@@ -1,0 +1,31 @@
+[package]
+name = "linux-rust"
+version = "0.1.0"
+edition = "2021"
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
+
+[[bin]]
+name = "ram"
+path = "src/ram/main.rs"
+
+[[bin]]
+name = "cpu-usage-once"
+path = "src/cpu-usage-once/main.rs"
+
+[[bin]]
+name = "exec-waybar"
+path = "src/exec-waybar/main.rs"
+
+[[bin]]
+name = "temperature"
+path = "src/temperature/main.rs"
+
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
