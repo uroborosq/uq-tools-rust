@@ -7,8 +7,7 @@ use std::{
 
 #[derive(Debug)]
 pub struct Sensor {
-    monitor: String,
-    sensor: String,
+    sensor_id: String,
     value: f64,
 }
 
@@ -43,9 +42,10 @@ pub fn get_sensors(
             let sensor_file = sensor_file_res
                 .map_err(|e| io::Error::new(e.kind(), format!("can't open sensor file due to error: {:?}", e)))?;
 
-            let mut file_name_os = sensor_file.file_name();
-
-            let file_name = file_name_os.to_str().ok_or("can't decode file name to unicode")?;
+            let file_name_os = sensor_file.file_name();
+            let file_name = file_name_os
+                .to_str()
+                .ok_or_else(|| format!("file name is not in Unicode: {:?}", sensor_file.file_name()))?;
 
             // name of monitor
             if file_name == "name" {
@@ -56,8 +56,10 @@ pub fn get_sensors(
                 continue;
             };
 
-            if str::ends_with(file_name, "_label") {
-                continue;
+            match splitted.1 {
+                "label" => {}
+                "input" => {}
+                _ => {}
             }
         }
 
