@@ -42,6 +42,7 @@ pub fn get_sensors(
             let sensor_file = sensor_file_res
                 .map_err(|e| io::Error::new(e.kind(), format!("can't open sensor file due to error: {:?}", e)))?;
 
+            // TODO: i wanna make it one line
             let file_name_os = sensor_file.file_name();
             let file_name = file_name_os
                 .to_str()
@@ -52,12 +53,12 @@ pub fn get_sensors(
                 monitor_name = Some(file_name.to_owned());
             }
 
-            let Some(splitted) = file_name.split_once("_") else {
+            let Some((prefix, suffix)) = file_name.split_once("_") else {
                 continue;
             };
 
-            match splitted.1 {
-                "label" => {}
+            match suffix {
+                "label" => {} 
                 "input" => {}
                 _ => {}
             }
