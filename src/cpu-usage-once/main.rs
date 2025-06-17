@@ -40,8 +40,7 @@ fn parse_cpu_stats(raw_stats: String) -> Result<CpuStats, String> {
 }
 
 fn get_state_str(path: &path::Path) -> Result<String, String> {
-    let stat_file = File::open(PROC_STAT)
-        .map_err(|e| format!("Can't open stat file {:?} due to error: {:?}", path, e))?;
+    let stat_file = File::open(PROC_STAT).map_err(|e| format!("Can't open stat file {:?} due to error: {:?}", path, e))?;
 
     let reader = BufReader::new(stat_file);
 

@@ -25,7 +25,12 @@ path = "src/exec-waybar/main.rs"
 name = "temperature"
 path = "src/temperature/main.rs"
 
+[[bin]]
+name = "frequency"
+path = "src/frequency/main.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+futures = "0.3.31"
+tokio = { version = "1.45.1", features = ["full"] }
