@@ -31,11 +31,9 @@
 //     Ok(())
 // }
 
-use std::{fs, thread::available_parallelism, time::SystemTime};
+use std::{fs, thread::available_parallelism};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let now = SystemTime::now();
-
     let cores = available_parallelism().unwrap().get();
     let mut futes = Vec::with_capacity(cores);
 
@@ -43,7 +41,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         let path = format!("/sys/devices/system/cpu/cpu{}/cpufreq/scaling_cur_freq", i);
         futes.push(fs::read_to_string(path));
     }
-    println!("{:?}", now.elapsed().unwrap());
 
     let max_freq: u64 = futes
         .into_iter()
@@ -54,8 +51,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .unwrap();
 
     println!("{}MHz", max_freq / 1000);
-
-    println!("{:?}", now.elapsed().unwrap());
 
     Ok(())
 }
